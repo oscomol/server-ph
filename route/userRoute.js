@@ -11,4 +11,7 @@ router.route("/")
 router.route("/:userId")
     .get(user.getUser)
 
+router.route("/recover")
+    .post(user.recoverAccount)
+
 module.exports = router;
