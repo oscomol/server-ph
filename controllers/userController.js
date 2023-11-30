@@ -1,14 +1,27 @@
 const dbconn = require("../config/dbconn");
 const bcrypt = require('bcrypt');
 
+function generateRandomString(length) {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  let randomString = '';
+
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    randomString += characters.charAt(randomIndex);
+  }
+
+  return randomString;
+}
+
 const createUser = async (req, res) => {
   const { username, password } = req.query;
   
-  const sql = "INSERT INTO tbl_user(username, password) VALUES(?,?)";
+  const sql = "INSERT INTO tbl_user(username, password, recovery) VALUES(?,?, ?)";
   const hashedPwd = await bcrypt.hash(password, 10);
-  await dbconn.query(sql, [username, hashedPwd], (err, result) => {
+  const randomString = generateRandomString(10);
+  await dbconn.query(sql, [username, hashedPwd, randomString], (err, result) => {
     if(err) return res.status(500).json({msg: "Server error"});
-    res.status(200).json({id: result.insertId});
+    res.status(200).json({id: result.insertId, PIN: randomString});
   })
 };
 
