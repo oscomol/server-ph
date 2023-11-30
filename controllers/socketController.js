@@ -4,7 +4,6 @@ const socketController = (io) => {
       io.on('connection', (socket) => {
         try {
           const isExist = users.find((user) => user === socket.id);
-          console.log(socket.id)
           if (!isExist) {
             users.push(socket.id);
           }
