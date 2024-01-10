@@ -44,7 +44,7 @@ app.post('/test', (req, res) => {
     const phId = uuidv4();
     const parsedId = uuidParse(phId)
     const stringfyId = uuidStringify(parsedId) + new Date().toLocaleString('en-PH');
-    const data = {ph: phData, id: stringfyId, date: new Date().toLocaleString('en-PH')};
+    const data = {ph: phData, id: stringfyId, date:new Date().toLocaleString('en-US', { timeZone: 'Asia/Manila' })};
     io.emit('to-user', data);
     savePh(phData, res)
   }else{
