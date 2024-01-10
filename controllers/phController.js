@@ -44,7 +44,7 @@ const getByDate = async (req, res) => {
 const savePh = async (ph, res) => {
     try {
         const sql = "INSERT INTO tbl_ph (date, ph) VALUE(?,?)";
-        await dbconn.query(sql, [new Date().toLocaleString(), ph], (err, result) => {
+        await dbconn.query(sql, [new Date().toLocaleString('en-US', { timeZone: 'Asia/Manila' }), ph], (err, result) => {
           if(err) {
             console.log("Error saving ph: " + err)
             throw err;
