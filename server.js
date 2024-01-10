@@ -56,6 +56,6 @@ app.post('/test', (req, res) => {
 app.use(errorHandler);
 
 server.listen(PORT, () => {
-  console.log(`Server updated: ${PORT}`);
+  console.log(`Server running: ${PORT}`);
   
 });
